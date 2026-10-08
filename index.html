@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090d">
+  <title>Tk Cartoon Studio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">TK</div>
+      <div>
+        <strong>Cartoon Studio</strong>
+        <span id="projectName">Untitled Project</span>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <button id="saveBtn" class="primary">Save</button>
+      <button id="previewBtn">Preview</button>
+      <button id="exportBtn">Export</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+
+    <aside class="sidebar">
+
+      <button class="nav active" data-page="projects">📁 Projects</button>
+      <button class="nav" data-page="characters">🎭 Characters</button>
+      <button class="nav" data-page="scenes">🎬 Scenes</button>
+      <button class="nav" data-page="timeline">⏱ Timeline</button>
+      <button class="nav" data-page="audio">🎵 Audio</button>
+      <button class="nav" data-page="settings">⚙ Settings</button>
+
+      <div class="sidebar-bottom">
+        <div class="storage">
+          <span>Local Storage</span>
+          <strong id="storageStatus">Ready</strong>
+        </div>
+      </div>
+
+    </aside>
+
+    <section class="content">
+
+      <!-- PROJECTS -->
+
+      <section class="page active" id="projects">
+
+        <div class="page-header">
+          <div>
+            <h1>My Projects</h1>
+            <p>Create and manage your cartoon episodes.</p>
+          </div>
+
+          <button class="primary" id="newProjectBtn">
+            ＋ New Project
+          </button>
+        </div>
+
+        <div id="projectGrid" class="project-grid"></div>
+
+      </section>
+
+
+      <!-- CHARACTERS -->
+
+      <section class="page" id="characters">
+
+        <div class="page-header">
+          <div>
+            <h1>Character Studio</h1>
+            <p>Build characters once and reuse them in every scene.</p>
+          </div>
+
+          <button class="primary" id="newCharacterBtn">
+            ＋ Character
+          </button>
+        </div>
+
+        <div id="characterGrid" class="character-grid"></div>
+
+      </section>
+
+
+      <!-- SCENES -->
+
+      <section class="page" id="scenes">
+
+        <div class="page-header">
+          <div>
+            <h1>Scenes</h1>
+            <p>Build your episode scene by scene.</p>
+          </div>
+
+          <button class="primary" id="newSceneBtn">
+            ＋ New Scene
+          </button>
+        </div>
+
+        <div id="sceneList" class="scene-list"></div>
+
+      </section>
+
+
+      <!-- TIMELINE -->
+
+      <section class="page" id="timeline">
+
+        <div class="page-header">
+          <div>
+            <h1>Timeline</h1>
+            <p>Control the timing of your animation.</p>
+          </div>
+        </div>
+
+        <div class="timeline-editor">
+
+          <div class="timeline-ruler">
+            <span>00:00</span>
+            <span>00:05</span>
+            <span>00:10</span>
+            <span>00:15</span>
+            <span>00:20</span>
+            <span>00:30</span>
+          </div>
+
+          <div class="track">
+            <div class="track-label">🎭 Characters</div>
+            <div class="clip character-clip">Character Movement</div>
+          </div>
+
+          <div class="track">
+            <div class="track-label">💬 Dialogue</div>
+            <div class="clip dialogue-clip">Dialogue</div>
+          </div>
+
+          <div class="track">
+            <div class="track-label">🎵 Music</div>
+            <div class="clip music-clip">Background Music</div>
+          </div>
+
+          <div class="track">
+            <div class="track-label">🎥 Camera</div>
+            <div class="clip camera-clip">Camera</div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- AUDIO -->
+
+      <section class="page" id="audio">
+
+        <div class="page-header">
+          <div>
+            <h1>Audio</h1>
+            <p>Manage voices, music and sound effects.</p>
+          </div>
+        </div>
+
+        <div class="audio-panel">
+
+          <button class="audio-card">
+            🎙️
+            <strong>Record Voice</strong>
+            <small>Record character dialogue</small>
+          </button>
+
+          <button class="audio-card">
+            🎵
+            <strong>Music</strong>
+            <small>Add background music</small>
+          </button>
+
+          <button class="audio-card">
+            🔊
+            <strong>Sound Effects</strong>
+            <small>Add effects to scenes</small>
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- SETTINGS -->
+
+      <section class="page" id="settings">
+
+        <div class="page-header">
+          <div>
+            <h1>Settings</h1>
+            <p>Manage your Cartoon Studio.</p>
+          </div>
+        </div>
+
+        <div class="settings-card">
+
+          <label>
+            Project name
+            <input id="projectTitle" type="text">
+          </label>
+
+          <label>
+            Default scene duration
+            <input id="sceneDuration" type="number" value="5" min="1">
+          </label>
+
+          <button class="primary" id="applySettings">
+            Save Settings
+          </button>
+
+        </div>
+
+      </section>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- CHARACTER MODAL -->
+
+<div class="modal" id="characterModal">
+
+  <div class="modal-box">
+
+    <button class="close" data-close="characterModal">×</button>
+
+    <h2>Create Character</h2>
+
+    <label>
+      Character name
+      <input id="characterName" placeholder="e.g. Taku">
+    </label>
+
+    <label>
+      Description
+      <textarea id="characterDescription"
+        placeholder="Describe your character..."></textarea>
+    </label>
+
+    <label>
+      Character emoji
+      <input id="characterEmoji" value="🧑🏽">
+    </label>
+
+    <button class="primary" id="createCharacter">
+      Create Character
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- PROJECT MODAL -->
+
+<div class="modal" id="projectModal">
+
+  <div class="modal-box">
+
+    <button class="close" data-close="projectModal">×</button>
+
+    <h2>New Project</h2>
+
+    <label>
+      Project name
+      <input id="newProjectName" placeholder="My Cartoon Series">
+    </label>
+
+    <button class="primary" id="createProject">
+      Create Project
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- SCENE MODAL -->
+
+<div class="modal" id="sceneModal">
+
+  <div class="modal-box">
+
+    <button class="close" data-close="sceneModal">×</button>
+
+    <h2>New Scene</h2>
+
+    <label>
+      Scene name
+      <input id="sceneName" placeholder="Scene 1">
+    </label>
+
+    <label>
+      Background
+      <select id="sceneBackground">
+        <option value="living">🏠 Living Room</option>
+        <option value="street">🌆 Street</option>
+        <option value="school">🏫 School</option>
+        <option value="park">🌳 Park</option>
+        <option value="night">🌙 Night</option>
+      </select>
+    </label>
+
+    <label>
+      Duration
+      <input id="sceneTime" type="number" value="5" min="1">
+    </label>
+
+    <button class="primary" id="createScene">
+      Create Scene
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- PREVIEW -->
+
+<div class="preview" id="preview">
+
+  <button id="closePreview">×</button>
+
+  <div class="stage" id="stage">
+
+    <div class="background"></div>
+
+    <div class="stage-character" id="stageCharacter">
+      🧑🏽
+    </div>
+
+    <div class="dialogue" id="stageDialogue">
+      Your cartoon preview
+    </div>
+
+  </div>
+
+  <div class="preview-controls">
+    <button id="playPreview">▶ Play</button>
+    <button id="stopPreview">■ Stop</button>
+  </div>
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+              </html>
